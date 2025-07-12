@@ -1,0 +1,5 @@
+# binários grandes
+client/ffmpeg.exe
+
+# base de dados de fingerprints
+fingerprints.db
