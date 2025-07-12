@@ -3,17 +3,19 @@
 import sqlite3
 
 def init_db(db_path="fingerprints.db"):
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS fingerprints (
-        hash    INTEGER NOT NULL,
-        time    REAL    NOT NULL,
-        song_id TEXT    NOT NULL
-    )""")
-    cur.execute("CREATE INDEX IF NOT EXISTS idx_fp_hash ON fingerprints(hash)")
+    # Permite usar esta conexão em várias threads
+    conn = sqlite3.connect(db_path, check_same_thread=False)
+    c = conn.cursor()
+    c.execute("""
+      CREATE TABLE IF NOT EXISTS fingerprints (
+        hash INTEGER,
+        time REAL,
+        song_id TEXT
+      );
+    """)
     conn.commit()
     return conn
+
 
 def store_fingerprints(fingerprint_map, conn):
     """
