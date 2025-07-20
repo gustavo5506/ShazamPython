@@ -44,6 +44,7 @@ def identify_snippet(audio_path):
     return data
 
 
+
 if __name__ == '__main__':
     if not os.path.isdir(SNIPPET_DIR):
         print(f"Cria `{SNIPPET_DIR}` e coloca aí apenas o teu snippet .m4a")
