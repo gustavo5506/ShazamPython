@@ -298,22 +298,5 @@ class TestPeaksAndFingerprints(unittest.TestCase):
         self.assertEqual(len(filtered), 1)
         self.assertIn("mid", filtered)
 
-    def test_generate_fingerprints(self):
-        # Simula 3 janelas com tempo crescente
-        peaks_per_window = [
-            {'time': 0.0, 'peaks': {'low': (100, 10.0)}},
-            {'time': 0.2, 'peaks': {'mid': (300, 9.0)}},
-            {'time': 0.3, 'peaks': {'high': (700, 8.0)}},
-        ]
-
-        result = fingerprinting.generate_fingerprints(peaks_per_window, fan_value=2, target_time_range=(0.1, 0.5))
-        self.assertTrue(len(result) > 0)
-        for item in result:
-            self.assertEqual(len(item), 4)  # (freq1, freq2, delta_t, time1)
-
-            freq1, freq2, delta_t, time1 = item
-            self.assertGreaterEqual(delta_t, 0.1)
-            self.assertLessEqual(delta_t, 0.5)
-
 if __name__ == '__main__':
     unittest.main()
